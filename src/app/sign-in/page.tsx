@@ -1,6 +1,12 @@
 import { Card } from "@/components/card";
+import { Metadata } from "next";
 import Link from "next/link";
 import { UserSignInForm } from "./components/user-sign-in-form";
+
+export const metadata: Metadata = {
+  title: "SignIn",
+  description: "SignIn forms built using the components.",
+};
 
 export default function SignIn() {
   return (

@@ -5,7 +5,7 @@ import { Card } from "@/components/card";
 import { UserSignUpForm } from "./components/user-sign-up-form";
 
 export const metadata: Metadata = {
-  title: "Sign-Up",
+  title: "SignUp",
   description: "SignUp forms built using the components.",
 };
 
