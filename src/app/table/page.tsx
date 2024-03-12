@@ -29,7 +29,7 @@ export default async function TaskPage() {
 
   return (
     <>
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+      <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
         <Header />
         <DataTable data={tasks} columns={columns} />
       </div>
