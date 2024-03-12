@@ -1,3 +1,5 @@
+"use client";
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { Button } from "../button";
@@ -12,6 +14,7 @@ import {
 } from "../dropdown";
 
 export function UserNav() {
+  const { logout } = useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,7 +46,11 @@ export function UserNav() {
           <DropdownMenuItem>Novo time</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Sair</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button className="w-full" onClick={logout}>
+            Sair
+          </Button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

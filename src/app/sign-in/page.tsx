@@ -25,7 +25,7 @@ export default function SignIn() {
               </div>
               <UserSignInForm />
               <p className="px-8 text-center text-sm text-muted-foreground">
-                Caso deseje voltar{" "}
+                Caso ainda não tenha uma conta{" "}
                 <Link
                   href="/sign-up"
                   className="underline underline-offset-4 hover:text-primary"

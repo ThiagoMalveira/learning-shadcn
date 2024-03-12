@@ -7,6 +7,7 @@ import { CardContent } from "@/components/card";
 import { Icons } from "@/components/icons";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
+import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
 interface UserSignInFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -18,6 +19,7 @@ interface loadingButtons {
 }
 
 export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
+  const { login } = useAuth();
   const [isLoading, setIsLoading] = React.useState<loadingButtons>({
     buttonGithub: false,
     buttonGoogle: false,
@@ -31,6 +33,8 @@ export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
       ...prevLoading,
       [buttonName]: true,
     }));
+
+    login();
 
     setTimeout(() => {
       setIsLoading((prevLoading) => ({
