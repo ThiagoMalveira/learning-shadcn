@@ -93,7 +93,7 @@ export function ProfileForm() {
             <FormItem>
               <FormLabel>Usuário</FormLabel>
               <FormControl>
-                <Input placeholder="usuário" {...field} />
+                <Input placeholder="Usuário" {...field} />
               </FormControl>
               <FormDescription>
                 Este é o seu nome de exibição público. Pode ser seu nome

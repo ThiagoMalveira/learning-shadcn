@@ -18,9 +18,11 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/radio-group";
 import { toast } from "@/components/useToast";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import { useEffect } from "react";
 
 const appearanceFormSchema = z.object({
-  theme: z.enum(["light", "dark"], {
+  theme: z.string({
     required_error: "Por favor selecione um tema.",
   }),
   font: z.enum(["inter", "manrope", "system"], {
@@ -37,10 +39,15 @@ const defaultValues: Partial<AppearanceFormValues> = {
 };
 
 export function AppearanceForm() {
+  const { setTheme, theme } = useTheme();
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues,
   });
+
+  useEffect(() => {
+    defaultValues.theme = theme;
+  }, [theme]);
 
   function onSubmit(data: AppearanceFormValues) {
     toast({
@@ -101,7 +108,11 @@ export function AppearanceForm() {
                 <FormItem>
                   <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
                     <FormControl>
-                      <RadioGroupItem value="light" className="sr-only" />
+                      <RadioGroupItem
+                        onClick={() => setTheme("light")}
+                        value="light"
+                        className="sr-only"
+                      />
                     </FormControl>
                     <div className="items-center rounded-md border-2 border-muted p-1 hover:border-accent">
                       <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
@@ -127,7 +138,11 @@ export function AppearanceForm() {
                 <FormItem>
                   <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
                     <FormControl>
-                      <RadioGroupItem value="dark" className="sr-only" />
+                      <RadioGroupItem
+                        onClick={() => setTheme("dark")}
+                        value="dark"
+                        className="sr-only"
+                      />
                     </FormControl>
                     <div className="items-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground">
                       <div className="space-y-2 rounded-sm bg-slate-950 p-2">

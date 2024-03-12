@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { UserNav } from "@/components/dataTable/user-nav";
 import { Separator } from "@/components/separator";
 import { SidebarNav } from "@/components/sidebar-nav";
+import { ModeToggle } from "@/components/toggle-theme";
 
 export const metadata: Metadata = {
   title: "Forms",
@@ -47,7 +48,10 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
               Ajuste as configurações da sua conta e preferência de e-mail.
             </p>
           </div>
-          <UserNav />
+          <div className="flex gap-8">
+            <ModeToggle />
+            <UserNav />
+          </div>
         </div>
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
