@@ -1,6 +1,5 @@
 import { Result } from '@/app/(home)/components/types'
 import { defaultHeader } from '@/configs'
-import { CONTENT_API_URL } from '@/configs/enviromental'
 
 export const HomeService = {
  fetchCarousel: async () => {
@@ -12,7 +11,7 @@ export const HomeService = {
     }
   }
 
-  const url = `${CONTENT_API_URL}/api/medias?limit=10&idsitearea=2091&orderby=ordem&sort=asc`
+  const url = `https://content.sbt.com.br/api/medias?limit=10&idsitearea=2091&orderby=ordem&sort=asc`
 
   try {
     const response = await fetch(url, {...request})
