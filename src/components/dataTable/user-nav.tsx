@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { Button } from "../button";
 import {
@@ -7,7 +8,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../dropdown";
 
@@ -17,7 +17,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatars/03.png" alt="@shadcn" />
+            <AvatarImage />
             <AvatarFallback>TH</AvatarFallback>
           </Avatar>
         </Button>
@@ -34,24 +34,16 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Perfil
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            <Link href="/settings/profile">Perfil</Link>
           </DropdownMenuItem>
+          <DropdownMenuItem>Pagamentos</DropdownMenuItem>
           <DropdownMenuItem>
-            Pagamentos
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Configurações
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            <Link href="/settings/profile">Configurações</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>Novo time</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Sair
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuItem>Sair</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

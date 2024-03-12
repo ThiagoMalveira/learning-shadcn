@@ -11,21 +11,38 @@ import Link from "next/link";
 
 interface UserSignUpFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UserSignUpForm({ className, ...props }: UserSignUpFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+interface loadingButtons {
+  buttonGithub: boolean;
+  buttonGoogle: boolean;
+  buttonLogin: boolean;
+}
 
-  async function onSubmit(event: React.SyntheticEvent) {
+export function UserSignUpForm({ className, ...props }: UserSignUpFormProps) {
+  const [isLoading, setIsLoading] = React.useState<loadingButtons>({
+    buttonGithub: false,
+    buttonGoogle: false,
+    buttonLogin: false,
+  });
+
+  async function handleSubmit(event: React.SyntheticEvent, buttonName: string) {
     event.preventDefault();
-    setIsLoading(true);
+
+    setIsLoading((prevLoading) => ({
+      ...prevLoading,
+      [buttonName]: true,
+    }));
 
     setTimeout(() => {
-      setIsLoading(false);
+      setIsLoading((prevLoading) => ({
+        ...prevLoading,
+        [buttonName]: false,
+      }));
     }, 3000);
   }
 
   return (
     <div className={cn("grid gap-6 p-8", className)} {...props}>
-      <form onSubmit={onSubmit}>
+      <form>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -38,11 +55,22 @@ export function UserSignUpForm({ className, ...props }: UserSignUpFormProps) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              disabled={isLoading}
+              disabled={
+                isLoading.buttonLogin ||
+                isLoading.buttonGoogle ||
+                isLoading.buttonGithub
+              }
             />
           </div>
-          <Button disabled={isLoading}>
-            {isLoading && (
+          <Button
+            disabled={
+              isLoading.buttonLogin ||
+              isLoading.buttonGoogle ||
+              isLoading.buttonGithub
+            }
+            onClick={(event) => handleSubmit(event, "buttonLogin")}
+          >
+            {isLoading.buttonLogin && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             Continue com e-mail
@@ -59,20 +87,43 @@ export function UserSignUpForm({ className, ...props }: UserSignUpFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
-        {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
-        GitHub
-      </Button>
-      <Button disabled={isLoading}>
-        <Link href="/sign-in">
-          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+      <div className="grid grid-cols-2 gap-6">
+        <Button
+          variant="outline"
+          onClick={(event) => handleSubmit(event, "buttonGithub")}
+        >
+          {" "}
+          {isLoading.buttonGithub ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Icons.gitHub className="mr-2 h-4 w-4" />
+          )}
+          Github
+        </Button>
+        <Button
+          variant="outline"
+          onClick={(event) => handleSubmit(event, "buttonGoogle")}
+        >
+          {isLoading.buttonGoogle ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Icons.google className="mr-2 h-4 w-4" />
+          )}
+          Google
+        </Button>
+      </div>
+      <Link href="/sign-in">
+        <Button
+          className="w-full"
+          disabled={
+            isLoading.buttonLogin ||
+            isLoading.buttonGoogle ||
+            isLoading.buttonGithub
+          }
+        >
           Já sou cadastrado!
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     </div>
   );
 }
